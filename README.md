@@ -15,7 +15,7 @@
     <p>Clone o repositório para sua máquina local:</p>
     <pre><code>git clone https://github.com/seu-usuario/seu-repositorio.git
 
-cd seu-repositorio</code></pre>
+</code></pre>
 
   <h3>Passo 2: Instalar Dependências</h3>
     <p>Instale as dependências do projeto usando o Composer:</p>
@@ -34,7 +34,7 @@ cd seu-repositorio</code></pre>
     <p>Você pode baixar e instalar o Docker <a href="https://www.docker.com/get-started" target="_blank">aqui</a>.</p>
 
   <h2>3. Suba os containers:</h2>
-    <pre><code>docker-compose up</code></pre>
+    <pre><code>docker-compose up -d</code></pre>
 
   <h3>Passo 4: Configurar o Banco de Dados</h3>
     <p>Configure as credenciais do banco de dados no arquivo <code>.env</code> e execute as migrações:</p>
