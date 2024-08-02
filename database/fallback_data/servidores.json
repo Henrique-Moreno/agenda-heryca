@@ -1,0 +1,36 @@
+[
+  {
+    "id": 1,
+    "usuario": { "name": "Pedro", "email": "pedro@example.com" },
+    "cargo": { "descricao": "Psicólogo" },
+    "horarios": ["09:00", "10:00", "20:00"],
+    "dias": [
+      { "data": "01-08-2024", "dia": "Quinta-feira" },
+      { "data": "02-08-2024", "dia": "Sexta-feira" },
+      { "data": "05-08-2024", "dia": "Segunda-feira" }
+    ]
+  },
+  {
+    "id": 2,
+    "usuario": { "name": "Maria", "email": "maria@example.com" },
+    "cargo": { "descricao": "Psicóloga" },
+    "horarios": ["08:30", "13:00", "15:00"],
+    "dias": [
+      { "data": "06-08-2024", "dia": "Terça-feira" },
+      { "data": "08-08-2024", "dia": "Quinta-feira" },
+      { "data": "10-08-2024", "dia": "Sábado" }
+    ]
+  },
+  {
+    "id": 3,
+    "usuario": { "name": "José", "email": "jose@example.com" },
+    "cargo": { "descricao": "Psicólogo" },
+    "horarios": ["11:00", "14:00", "17:00"],
+    "dias": [
+      { "data": "12-08-2024", "dia": "Segunda-feira" },
+      { "data": "14-08-2024", "dia": "Quarta-feira" },
+      { "data": "16-08-2024", "dia": "Sexta-feira" }
+    ]
+  }
+]
+

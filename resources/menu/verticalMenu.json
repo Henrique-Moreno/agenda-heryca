@@ -1,0 +1,42 @@
+{
+  "menu": [
+    {
+      "url": "/home",
+      "name": "Home",
+      "icon": "menu-icon tf-icons mdi mdi-home-outline",
+      "slug": "pages-home"
+    },
+    {
+      "url": "/usuario",
+      "name": "Usuarios",
+      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "slug": "auth-register-basic"
+    },
+    {
+      "url": "/alunos",
+      "name": "Alunos",
+      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "slug": "auth-register-basic",
+      "target": ""
+    },
+    {
+      "url": "/servidores",
+      "name": "Servidores",
+      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "slug": "auth-register-basic"
+    },
+    {
+      "url": "/prontuarios",
+      "name": "Prontuarios",
+      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "slug": "auth-register-basic"
+    },
+    {
+      "url": "/agendas",
+      "name": "Agendas",
+      "icon": "menu-icon tf-icons mdi mdi-account-outline",
+      "slug": "auth-register-basic"
+    }
+
+  ]
+}
