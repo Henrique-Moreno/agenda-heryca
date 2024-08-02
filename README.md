@@ -27,6 +27,15 @@ cd seu-repositorio</code></pre>
     <p>Gere a chave de aplicação:</p>
     <pre><code>php artisan key:generate</code></pre>
 
+  <h1>Instruções para Rodar o Docker</h1>
+    <p>Siga os passos abaixo para rodar a aplicação usando Docker:</p>
+
+  <h2>1. Certifique-se de ter o Docker instalado:</h2>
+    <p>Você pode baixar e instalar o Docker <a href="https://www.docker.com/get-started" target="_blank">aqui</a>.</p>
+
+  <h2>3. Suba os containers:</h2>
+    <pre><code>docker-compose up</code></pre>
+
   <h3>Passo 4: Configurar o Banco de Dados</h3>
     <p>Configure as credenciais do banco de dados no arquivo <code>.env</code> e execute as migrações:</p>
     <pre><code>php artisan migrate</code></pre>
