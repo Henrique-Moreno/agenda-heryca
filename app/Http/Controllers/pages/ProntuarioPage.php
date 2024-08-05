@@ -4,90 +4,57 @@ namespace App\Http\Controllers\pages;
 
 use App\Http\Controllers\Controller;
 use App\Models\Prontuario;
+use App\Models\Servidor;
+use App\Models\Aluno;
 use Illuminate\Http\Request;
 
 class ProntuarioPage extends Controller
 {
   /**
-   * Exibe uma lista dos recursos.
+   * Exibe uma lista dos recursos e o formulário de cadastro.
    */
-  public function index()
+  public function index(Request $request)
   {
     $prontuarios = Prontuario::all();
-    return view('content.pages.pages-prontuario', compact('prontuarios'));
+        $servidores = Servidor::all();  // Buscar todos os servidores
+        $alunos = Aluno::all();
+    $search = $request->input('search'); // Captura o termo de busca
+
+    // Inicializa a consulta
+    $query = Prontuario::query();
+
+    // Adiciona condição de busca se o termo de busca for fornecido
+    if ($search) {
+      $query
+        ->whereHas('servidor', function ($q) use ($search) {
+          $q->where('nome_completo', 'like', "%{$search}%"); // Ajuste para o nome correto da coluna
+        })
+        ->orWhereHas('aluno', function ($q) use ($search) {
+          $q->where('nome_aluno', 'like', "%{$search}%"); // Ajuste para o nome correto da coluna
+        });
+
+
+    }
+    return view('content.pages.pages-prontuario', compact('prontuarios', 'servidores', 'alunos'));
   }
 
   /**
-   * Mostra o formulário para criar um novo recurso.
-   */
-  public function create()
-  {
-    return view('content.pages.pages-prontuario-create');
-  }
-
-  /**
-   * Armazena um recurso recém-criado no armazenamento.
+   * Armazena um novo recurso.
    */
   public function store(Request $request)
   {
-    $request->validate([
-      'id_servidor' => 'required|integer',
-      'id_aluno' => 'required|integer',
+    $validated = $request->validate([
+      'id_servidor' => 'required|exists:servidores,id',
+      'id_aluno' => 'required|exists:alunos,id',
       'observacao' => 'required|string',
       'terapia' => 'required|string',
       'medicacao' => 'required|string',
     ]);
 
-    Prontuario::create($request->all());
+    Prontuario::create($validated);
 
     return redirect()
-      ->route('prontuarios.index')
-      ->with('success', 'Prontuário criado com sucesso.');
-  }
-
-  /**
-   * Exibe o recurso especificado.
-   */
-  public function show(Prontuario $prontuario)
-  {
-    return view('content.pages.pages-prontuario-show', compact('prontuario'));
-  }
-
-  /**
-   * Mostra o formulário para editar o recurso especificado.
-   */
-  public function edit(Prontuario $prontuario)
-  {
-    return view('content.pages.pages-prontuario-edit', compact('prontuario'));
-  }
-
-  /**
-   * Atualiza o recurso especificado no armazenamento.
-   */
-  public function update(Request $request, Prontuario $prontuario)
-  {
-    $request->validate([
-      'observacao' => 'required|string',
-      'terapia' => 'required|string',
-      'medicacao' => 'required|string',
-    ]);
-
-    $prontuario->update($request->all());
-
-    return redirect()
-      ->route('prontuarios.index')
-      ->with('success', 'Prontuário atualizado com sucesso.');
-  }
-
-  /**
-   * Remove o recurso especificado do armazenamento.
-   */
-  public function destroy(Prontuario $prontuario)
-  {
-    $prontuario->delete();
-
-    return redirect()
-      ->route('prontuarios.index')
-      ->with('success', 'Prontuário deletado com sucesso.');
+      ->route('prontuario.index')
+      ->with('success', 'Prontuário cadastrado com sucesso!');
   }
 }

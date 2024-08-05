@@ -43,12 +43,13 @@ Route::put('/agenda/{id}', [AgendaPage::class, 'update'])->name('agenda.update')
 Route::delete('/agenda/{id}', [AgendaPage::class, 'destroy'])->name('agenda.destroy');
 
 
-
-
-
-
 // prontuário eletrônico
 Route::match(['get', 'post'], '/prontuarios', [ProntuarioPage::class, 'index'])->name('prontuarios.index');
+Route::get('/prontuario', [ProntuarioPage::class, 'index'])->name('prontuario.index');
+Route::post('/prontuario', [ProntuarioPage::class, 'store'])->name('prontuario.store');
+Route::get('/prontuario/search', [ProntuarioPage::class, 'search'])->name('prontuario.search');
+Route::put('/prontuario/{id}', [ProntuarioPage::class, 'update'])->name('prontuario.update');
+Route::delete('/prontuario/{id}', [ProntuarioPage::class, 'destroy'])->name('prontuario.destroy');
 
 // Página para ver horários disponíveis
 Route::match(['get', 'post'], '/ver-horarios', [HorariosPage::class, 'verHorarios'])->name('ver-horarios');
