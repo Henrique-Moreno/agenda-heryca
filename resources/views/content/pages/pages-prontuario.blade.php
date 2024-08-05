@@ -1,5 +1,7 @@
 @extends('layouts.layoutMaster')
 
+@section('title', 'Prontuário')
+
 @section('content')
     <h1>Editar Prontuário</h1>
 

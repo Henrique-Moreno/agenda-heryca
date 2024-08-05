@@ -16,38 +16,29 @@ class ServidoresController extends Controller
   {
     $this->usuariosService = $usuariosService;
   }
-  /**
-   * Display a listing of the resource.
-   */
+
   public function index()
   {
     $servidores = Servidor::with('usuario', 'cargo')->get();
     $cargos = Cargo::orderBy('descricao', 'ASC')->get();
 
-    return view('admin.servidores.index')
+    return view('admin.servidores.pages-servidores')
       ->with('servidores', $servidores)
       ->with('cargos', $cargos);
-    //
   }
 
-  /**
-   * Show the form for creating a new resource.
-   */
   public function create()
   {
     $cargos = Cargo::all();
-    return view('view', compact('cargos'));
+    return view('servidores.create', compact('cargos'));
   }
 
-  /**
-   * Store a newly created resource in storage.
-   */
   public function store(Request $request)
   {
     try {
       DB::beginTransaction();
 
-      $usuario = $this->usuariosService->store($request, 3);
+      $usuario = $this->usuariosService->store($request, 2);
 
       $servidor = Servidor::create([
         'usuario_id' => $usuario->id,
@@ -56,40 +47,28 @@ class ServidoresController extends Controller
 
       DB::commit();
       session()->flash('global-success', 'Servidor cadastrado com sucesso!');
-      return redirect()->route('servidores.index');
+      return redirect()->route('servidores');
     } catch (Exception $e) {
+      DB::rollback();
       return $e->getMessage();
     }
-    //
   }
 
-  /**
-   * Display the specified resource.
-   */
-  public function show(string $id)
-  {
-    //
-  }
-
-  /**
-   * Show the form for editing the specified resource.
-   */
   public function edit(string $id)
   {
-    //
+    $servidor = Servidor::findOrFail($id);
+    $cargos = Cargo::all();
+    return view('servidores.edit', compact('servidor', 'cargos'));
   }
 
-  /**
-   * Update the specified resource in storage.
-   */
   public function update(Request $request, string $id)
   {
     try {
       DB::beginTransaction();
 
-      $servidor = Servidor::find($id);
+      $servidor = Servidor::findOrFail($id);
 
-      $usuario = $this->usuariosService->update($servidor->usuario_id, $request, 3);
+      $usuario = $this->usuariosService->update($servidor->usuario_id, $request, 2);
 
       $servidor->update([
         'cargo_id' => $request->input('cargo_id'),
@@ -97,18 +76,28 @@ class ServidoresController extends Controller
 
       DB::commit();
       session()->flash('global-success', 'Servidor atualizado com sucesso!');
-      return redirect()->route('admin.servidores.index');
+      return redirect()->route('servidores');
     } catch (Exception $e) {
+      DB::rollback();
       return $e->getMessage();
     }
-    //
   }
 
-  /**
-   * Remove the specified resource from storage.
-   */
+
   public function destroy(string $id)
   {
-    //
+    try {
+      DB::beginTransaction();
+
+      $servidor = Servidor::findOrFail($id);
+      $servidor->delete();
+
+      DB::commit();
+      session()->flash('global-success', 'Servidor removido com sucesso!');
+      return redirect()->route('servidores.index');
+    } catch (Exception $e) {
+      DB::rollback();
+      return $e->getMessage();
+    }
   }
 }

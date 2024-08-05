@@ -3,7 +3,6 @@
 @section('title', 'Horários e Dias Disponíveis')
 
 @section('content')
-
     <div class="card">
         <div class="card-header">
             <h4>Horários e Dias Disponíveis</h4>
@@ -23,19 +22,18 @@
 
             <div id="calendar" class="calendar" style="flex: 1;">
                 <h5>Escolha uma data e horário</h5>
-                <form id="appointmentForm" action="{{ url('/home') }}" method="GET">
+                <form id="appointmentForm" action="{{ route('/agenda') }}" method="POST">
+                    @csrf
                     <input type="hidden" name="servidor_id" value="{{ $servidor->id }}">
 
                     <div class="form-group">
                         <label for="dia">Data Disponível:</label>
                         <select name="dia" id="dia" class="form-control">
                             <option value="" disabled selected>Escolha um dia</option>
-
-                            @foreach($servidor->dias as $dia)
-                                <option value="{{ $dia->data }}">
-                                    {{ $dia->dia }} - {{ $dia->data }}
-                                </option>
-                            @endforeach
+                            <option value="2024-08-05">05/08/2024</option>
+                            <option value="2024-08-06">06/08/2024</option>
+                            <option value="2024-08-07">07/08/2024</option>
+                            <option value="2024-08-08">08/08/2024</option>
                         </select>
                     </div>
 
@@ -43,10 +41,11 @@
                         <label for="horario">Horário Disponível:</label>
                         <select name="horario" id="horario" class="form-control">
                             <option value="" disabled selected>Escolha um horário</option>
-
-                            @foreach($servidor->horarios as $horario)
-                                <option value="{{ $horario }}">{{ $horario }}</option>
-                            @endforeach
+                            <option value="09:00">09:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
                         </select>
                     </div>
 
@@ -55,7 +54,4 @@
             </div>
         </div>
     </div>
-
 @endsection
-
-

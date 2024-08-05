@@ -1,3 +1,5 @@
+@props(['cursos', 'aluno'])
+
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-success w-100" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
     Novo

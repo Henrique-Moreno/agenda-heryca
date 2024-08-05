@@ -1,33 +1,55 @@
 <?php
 namespace App\Services\Admin;
 
-use stdClass;
 use App\Models\User;
-use Hash;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UsuariosService
 {
-  public function store($params, $tipo)
+  /**
+   * Store a new user in the database.
+   *
+   * @param \Illuminate\Http\Request $request
+   * @param int $tipo
+   * @return \App\Models\User
+   */
+  public function store($request, $tipo)
   {
-    return User::create([
-      'name' => $params->nome,
-      'nome_completo' => $params->nome,
-      'CPF' => $params->cpf,
-      'email' => $params->email,
-      'password' => Hash::make($params->cpf),
+    $user = User::create([
+      'name' => $request->input('nome'),
+      'nome_completo' => $request->input('nome'),
+      'CPF' => $request->input('cpf'),
+      'email' => $request->input('email'),
+      'password' => Hash::make($request->input('cpf')), // Consider using a more secure password strategy
       'acesso_id' => $tipo,
     ]);
+
+    return $user;
   }
 
-  public function update($id, $params, $tipo)
+  /**
+   * Update an existing user in the database.
+   *
+   * @param int $id
+   * @param \Illuminate\Http\Request $request
+   * @param int $tipo
+   * @return bool
+   */
+  public function update($id, $request, $tipo)
   {
-    $user = User::find($id);
+    try {
+      $user = User::findOrFail($id);
 
-    return $user->update([
-      'name' => $params->nome,
-      'nome_completo' => $params->nome,
-      'CPF' => $params->cpf,
-      'acesso_id' => $tipo,
-    ]);
+      return $user->update([
+        'name' => $request->input('nome'),
+        'nome_completo' => $request->input('nome'),
+        'CPF' => $request->input('cpf'),
+        'acesso_id' => $tipo,
+      ]);
+    } catch (ModelNotFoundException $e) {
+      // Handle the case where the user is not found
+      throw $e; // Or return a more user-friendly response
+    }
   }
 }

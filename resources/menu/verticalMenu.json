@@ -7,7 +7,7 @@
       "slug": "pages-home"
     },
     {
-      "url": "/usuario",
+      "url": "/usuarios",
       "name": "Usuarios",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
       "slug": "auth-register-basic"
@@ -32,7 +32,7 @@
       "slug": "auth-register-basic"
     },
     {
-      "url": "/agendas",
+      "url": "/agenda",
       "name": "Agendas",
       "icon": "menu-icon tf-icons mdi mdi-account-outline",
       "slug": "auth-register-basic"

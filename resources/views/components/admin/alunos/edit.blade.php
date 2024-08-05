@@ -1,3 +1,6 @@
+<!-- resources/views/components/admin/alunos/edit.blade.php -->
+@props(['cursos', 'aluno'])
+
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-warning w-100" data-bs-toggle="modal" data-bs-target="#aluno-{{ $aluno->id }}">
     Editar
@@ -14,6 +17,7 @@
             <div class="modal-body">
                 <form action="{{ route('alunos.update', $aluno->id) }}" method="POST">
                     @csrf
+                    @method('PUT')
                     <div class="row">
                         <div class="form-group">
                             <div class="col-md-12">
@@ -45,11 +49,9 @@
                                 <select name="curso_id" class="form-select" required>
                                     <option disabled selected>Selecione o curso</option>
                                     @foreach($cursos as $curso)
-                                        @if($aluno->curso_id == $curso->id)
-                                            <option value="{{ $curso->id }}" selected>{{ $curso->descricao }}</option>
-                                        @else
-                                            <option value="{{ $curso->id }}">{{ $curso->descricao }}</option>
-                                        @endif
+                                        <option value="{{ $curso->id }}" {{ $aluno->curso_id == $curso->id ? 'selected' : '' }}>
+                                            {{ $curso->descricao }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>

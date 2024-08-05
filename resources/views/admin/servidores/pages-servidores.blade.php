@@ -1,13 +1,13 @@
 @extends('layouts.layoutMaster')
 
-@section('title', 'Cadastrar Alunos')
+@section('title', 'Cadastrar Servidores')
 
 @section('content')
     <div class="card">
         <div class="card-header">
             <div class="row d-flex justify-content-end">
                 <div class="col-md-3">
-                    <x-admin.alunos.create :cursos="$cursos" />
+                    <x-admin.servidores.create :cargos="$cargos" />
                 </div>
             </div>
         </div>
@@ -18,22 +18,20 @@
                         <tr>
                             <th>Nome</th>
                             <th>E-mail</th>
-                            <th>Curso</th>
-                            <th>Turma</th>
-                            <th>Matrícula</th>
-                            <th>Editar</th>
+                            <th>CPF</th>
+                            <th>Cargo</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($alunos as $aluno)
+                        @foreach($servidores as $servidor)
                             <tr>
-                                <td>{{ $aluno->usuario->name }}</td>
-                                <td>{{ $aluno->usuario->email }}</td>
-                                <td>{{ $aluno->curso->descricao }}</td>
-                                <td>{{ $aluno->codigo_turma }}</td>
-                                <td>{{ $aluno->codigo_matricula }}</td>
+                                <td>{{ $servidor->usuario->name }}</td>
+                                <td>{{ $servidor->usuario->email }}</td>
+                                <td>{{ $servidor->usuario->CPF }}</td>
+                                <td>{{ $servidor->cargo->descricao }}</td>
                                 <td>
-                                    <x-admin.alunos.edit :cursos="$cursos" :aluno="$aluno" />
+                                    <x-admin.servidores.edit :servidor="$servidor" :cargos="$cargos" />
                                 </td>
                             </tr>
                         @endforeach

@@ -5,6 +5,16 @@ namespace App\Http\Controllers\pages;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Servidor;
+use App\Models\Agenda;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Auth;
+
+namespace App\Http\Controllers\pages;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Models\Servidor;
+use App\Models\Agenda;
 use Illuminate\Support\Facades\File;
 
 class HorariosPage extends Controller
@@ -45,18 +55,28 @@ class HorariosPage extends Controller
     return view('content.pages.pages-horarios', ['servidor' => $servidor]);
   }
 
-  public function confirmarConsulta(Request $request)
-{
-    // Código para confirmar a consulta
-    $consulta = Consulta::find($request->consulta_id);
-    $consulta->update([
-        'status' => 'confirmada'
+  public function agendar(Request $request)
+  {
+    // Validação dos dados recebidos
+    $validated = $request->validate([
+      'servidor_id' => 'required|integer',
+      'id_aluno' => 'required|integer',
+      'dia' => 'required|date',
+      'horario' => 'required',
     ]);
 
-    // Enviar notificação
-    $consulta->aluno->notify(new ConsultaConfirmada($consulta));
-    $consulta->servidor->notify(new ConsultaConfirmada($consulta));
+    // Criação da nova agenda
+    $agenda = new Agenda();
+    $agenda->id_servidor = $validated['servidor_id'];
+    $agenda->id_aluno = $validated['id_aluno'];
+    $agenda->data = $validated['dia'];
+    $agenda->horario = $validated['horario'];
+    $agenda->status = 'confirmado';
+    $agenda->save();
 
-    return redirect()->route('consultas.index')->with('success', 'Consulta confirmada e notificação enviada.');
-}
+    // Redireciona para a página de agenda com uma mensagem de sucesso
+    return redirect()
+      ->route('agenda.show')
+      ->with('success', 'Consulta agendada com sucesso!');
+  }
 }

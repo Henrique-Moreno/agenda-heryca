@@ -14,7 +14,9 @@
             <div class="modal-body">
                 <form action="{{ route('usuario.update', $usuario->id) }}" method="POST">
                     @csrf
+                    @method('PUT')
                     <x-admin.usuarios.form :usuario="$usuario" :tipos="$tipos"/>
+
                 </form>
             </div>
         </div>
