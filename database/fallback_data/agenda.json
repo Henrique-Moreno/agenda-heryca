@@ -1,18 +1,44 @@
-[
-  {
-      "id": 1,
-      "id_servidor": 14,
-      "id_aluno": 101,
-      "data": "05-08-2024",
-      "horario": "09:00",
-      "status": "confirmado"
-  },
-  {
-      "id": 2,
-      "id_servidor": 2,
-      "id_aluno": 104,
-      "data": "06-08-2024",
-      "horario": "14:00",
-      "status": "confirmado"
-  }
-]
+{
+    "0": {
+        "id": 1,
+        "id_servidor": 14,
+        "id_aluno": 101,
+        "nome": "Pedro",
+        "data": "05-08-2024",
+        "horario": "09:35",
+        "status": "confirmado"
+    },
+    "1": {
+        "id": 2,
+        "id_servidor": 2,
+        "id_aluno": 104,
+        "nome": "Caio",
+        "data": "06-08-2024",
+        "horario": "15:00",
+        "status": "confirmado"
+    },
+    "3": {
+        "id": 4,
+        "nome": "Carlos",
+        "horario": "06:36",
+        "status": "confirmado",
+        "id_servidor": null,
+        "id_aluno": null
+    },
+    "4": {
+        "id": 5,
+        "nome": "Heryca Gomes",
+        "horario": "20:00",
+        "status": "cancelado",
+        "id_servidor": null,
+        "id_aluno": null
+    },
+    "5": {
+        "id": 6,
+        "nome": "Pedro jose",
+        "horario": "20 00",
+        "status": "cancelado",
+        "id_servidor": null,
+        "id_aluno": null
+    }
+}

@@ -22,7 +22,7 @@
                             <th>Nome</th>
                             <th>E-mail</th>
                             <th>Tipo de Acesso</th>
-                            <th>Editar</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
                     <tbody>

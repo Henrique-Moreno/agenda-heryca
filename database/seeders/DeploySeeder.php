@@ -42,32 +42,11 @@ class DeploySeeder extends Seeder
    */
   protected function createTipoUsuario()
   {
-    TipoUsuario::updateOrCreate(
-      [
-        'id' => 1,
-      ],
-      [
-        'descricao' => 'Admin',
-      ]
-    );
+    TipoUsuario::updateOrCreate(['id' => 1], ['descricao' => 'Admin']);
 
-    TipoUsuario::updateOrCreate(
-      [
-        'id' => 2,
-      ],
-      [
-        'descricao' => 'Servidor',
-      ]
-    );
+    TipoUsuario::updateOrCreate(['id' => 2], ['descricao' => 'Servidor']);
 
-    TipoUsuario::updateOrCreate(
-      [
-        'id' => 3,
-      ],
-      [
-        'descricao' => 'Aluno',
-      ]
-    );
+    TipoUsuario::updateOrCreate(['id' => 3], ['descricao' => 'Aluno']);
   }
 
   /**
@@ -78,9 +57,7 @@ class DeploySeeder extends Seeder
   protected function createUser()
   {
     User::updateOrCreate(
-      [
-        'email' => 'admin.agendas@ifnmg',
-      ],
+      ['email' => 'admin.agendas@ifnmg'],
       [
         'name' => 'Usuário Admin',
         'nome_completo' => 'Usuário Admin',
@@ -91,9 +68,7 @@ class DeploySeeder extends Seeder
     );
 
     User::updateOrCreate(
-      [
-        'email' => 'lucas.agendas@aluno.ifnmg',
-      ],
+      ['email' => 'lucas.agendas@aluno.ifnmg'],
       [
         'name' => 'Usuário Aluno',
         'nome_completo' => 'Usuário Aluno',
@@ -133,27 +108,11 @@ class DeploySeeder extends Seeder
   {
     Cargo::updateOrCreate([
       'descricao' => 'Psicólogo(a)',
-      'descricao' => 'Medico(a)',
+    ]);
+
+    Cargo::updateOrCreate([
+      'descricao' => 'Médico(a)',
     ]);
   }
 
-  /**
-   * Cadastra alunos
-   *
-   * @return void
-   */
-  protected function createAluno()
-  {
-    $cursos = Curso::all();
-    $users = User::where('acesso_id', 3)->get();
-
-    foreach ($users as $user) {
-      Aluno::updateOrCreate([
-        'usuario_id' => $user->id,
-        'curso_id' => $cursos->random()->id,
-        'codigo_matricula' => 'M123456',
-        'codigo_turma' => 'T123456',
-      ]);
-    }
-  }
 }

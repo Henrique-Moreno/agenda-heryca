@@ -67,6 +67,22 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row mt-4">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label for="password">Senha *</label>
+                                <input class="form-control" type="password" id="password" name="password" required/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label for="password_confirmation">Confirme a senha *</label>
+                                <input class="form-control" type="password" id="password_confirmation" name="password_confirmation" required/>
+                            </div>
+                        </div>
+                    </div>
                     <hr>
                     <div class="row mt-4">
                         <div class="col-md-12">

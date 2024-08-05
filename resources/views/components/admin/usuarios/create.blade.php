@@ -52,11 +52,27 @@
                                 <div class="col-md-12">
                                     <label for="acesso_id">Tipo de Acesso *</label>
                                     <select name="acesso_id" class="form-select">
-                <option selected disabled>Selecione</option>
-                @foreach($tipos as $tipo)
-                    <option value="{{ $tipo->id }}" {{ (isset($usuario) && $usuario->acesso_id == $tipo->id) ? 'selected' : '' }}>{{ $tipo->descricao }}</option>
-                @endforeach
-            </select>
+                                        <option selected disabled>Selecione</option>
+                                        @foreach($tipos as $tipo)
+                                            <option value="{{ $tipo->id }}">{{ $tipo->descricao }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label for="password">Senha *</label>
+                                    <input class="form-control" type="password" id="password" name="password" required />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label for="password_confirmation">Confirmar Senha *</label>
+                                    <input class="form-control" type="password" id="password_confirmation" name="password_confirmation" required />
                                 </div>
                             </div>
                         </div>

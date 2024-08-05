@@ -22,7 +22,7 @@
 
             <div id="calendar" class="calendar" style="flex: 1;">
                 <h5>Escolha uma data e horário</h5>
-                <form id="appointmentForm" action="{{ route('/agenda') }}" method="POST">
+                <form id="appointmentForm" action="{{url('/agenda')}}" method="GET">
                     @csrf
                     <input type="hidden" name="servidor_id" value="{{ $servidor->id }}">
 

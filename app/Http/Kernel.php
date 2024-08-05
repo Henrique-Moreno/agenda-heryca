@@ -71,7 +71,8 @@ class Kernel extends HttpKernel
 
   protected $routeMiddleware = [
     // outros middlewares
-    'check.access' => \App\Http\Middleware\CheckAccess::class,
+    'checkaccess' => \App\Http\Middleware\CheckAccess::class,
+    'auth' => \App\Http\Middleware\Authenticate::class,
 ];
 
 }

@@ -1,9 +1,11 @@
 <?php
+
 namespace App\Services\Admin;
 
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 
 class UsuariosService
 {
@@ -14,7 +16,7 @@ class UsuariosService
    * @param int $tipo
    * @return \App\Models\User
    */
-  public function store($request, $tipo)
+  public function store(Request $request, int $tipo): User
   {
     $user = User::create([
       'name' => $request->input('nome'),
@@ -36,17 +38,24 @@ class UsuariosService
    * @param int $tipo
    * @return bool
    */
-  public function update($id, $request, $tipo)
+  public function update(int $id, Request $request, int $tipo): bool
   {
     try {
       $user = User::findOrFail($id);
 
-      return $user->update([
+      $data = [
         'name' => $request->input('nome'),
         'nome_completo' => $request->input('nome'),
         'CPF' => $request->input('cpf'),
         'acesso_id' => $tipo,
-      ]);
+      ];
+
+      // Update password if provided
+      if ($request->filled('password')) {
+        $data['password'] = Hash::make($request->input('password'));
+      }
+
+      return $user->update($data);
     } catch (ModelNotFoundException $e) {
       // Handle the case where the user is not found
       throw $e; // Or return a more user-friendly response

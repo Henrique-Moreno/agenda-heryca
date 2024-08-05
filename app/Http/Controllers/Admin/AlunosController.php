@@ -7,6 +7,7 @@ use App\Models\Aluno;
 use App\Models\Curso;
 use App\Services\Admin\UsuariosService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use DB;
 use Exception;
 
@@ -24,8 +25,6 @@ class AlunosController extends Controller
   {
     $alunos = Aluno::with('usuario', 'curso')->get();
     $cursos = Curso::orderBy('descricao', 'ASC')->get();
-
-    // Retorna a view com os dados dos alunos e cursos
     return view('admin.alunos.index')
       ->with('alunos', $alunos)
       ->with('cursos', $cursos);
@@ -52,6 +51,7 @@ class AlunosController extends Controller
       'curso_id' => 'required|exists:cursos,id',
       'codigo_matricula' => 'required|string|max:30',
       'codigo_turma' => 'required|string|max:30',
+      'password' => 'required|string|min:8|confirmed', // Validação para a senha
     ]);
 
     try {
@@ -66,6 +66,7 @@ class AlunosController extends Controller
         'curso_id' => $request->input('curso_id'),
         'codigo_matricula' => $request->input('codigo_matricula'),
         'codigo_turma' => $request->input('codigo_turma'),
+        'password' => Hash::make($request->input('password')), // Armazenar a senha criptografada
       ]);
 
       DB::commit();
@@ -102,6 +103,7 @@ class AlunosController extends Controller
       'curso_id' => 'required|exists:cursos,id',
       'codigo_matricula' => 'required|string|max:30',
       'codigo_turma' => 'required|string|max:30',
+      'password' => 'nullable|string|min:8|confirmed', // Senha opcional
     ]);
 
     try {
@@ -109,7 +111,11 @@ class AlunosController extends Controller
 
       $aluno = Aluno::findOrFail($id);
 
-      $usuario = $this->usuarioService->update($aluno->usuario_id, $request, 3);
+      $userData = $request->only(['nome', 'cpf']);
+      if ($request->filled('password')) {
+        $userData['password'] = Hash::make($request->input('password')); // Criptografa a senha
+      }
+      $this->usuarioService->update($aluno->usuario_id, $request, 3);
 
       $aluno->update([
         'curso_id' => $request->input('curso_id'),

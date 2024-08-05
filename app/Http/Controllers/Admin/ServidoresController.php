@@ -38,8 +38,19 @@ class ServidoresController extends Controller
     try {
       DB::beginTransaction();
 
+      // Validar a entrada do usuário
+      $request->validate([
+        'nome' => 'required|string',
+        'email' => 'required|email',
+        'cpf' => 'required|string',
+        'cargo_id' => 'required|exists:cargos,id',
+        'password' => 'required|string|min:6', // Validação da senha
+      ]);
+
+      // Criar o usuário com a senha
       $usuario = $this->usuariosService->store($request, 2);
 
+      // Criar o servidor associado ao usuário
       $servidor = Servidor::create([
         'usuario_id' => $usuario->id,
         'cargo_id' => $request->input('cargo_id'),
@@ -54,35 +65,32 @@ class ServidoresController extends Controller
     }
   }
 
+  public function update($id, $request, $tipo)
+  {
+    try {
+      $user = User::findOrFail($id);
+
+      $user->update([
+        'name' => $request->input('name'),
+        'nome_completo' => $request->input('nome_completo'),
+        'CPF' => $request->input('cpf'),
+        'email' => $request->input('email'),
+        'password' => Hash::make($request->input('password')), // Atualize a senha se fornecida
+        'acesso_id' => $tipo,
+      ]);
+
+      return true;
+    } catch (ModelNotFoundException $e) {
+      throw $e; // Ou retorne uma resposta amigável
+    }
+  }
+
   public function edit(string $id)
   {
     $servidor = Servidor::findOrFail($id);
     $cargos = Cargo::all();
     return view('servidores.edit', compact('servidor', 'cargos'));
   }
-
-  public function update(Request $request, string $id)
-  {
-    try {
-      DB::beginTransaction();
-
-      $servidor = Servidor::findOrFail($id);
-
-      $usuario = $this->usuariosService->update($servidor->usuario_id, $request, 2);
-
-      $servidor->update([
-        'cargo_id' => $request->input('cargo_id'),
-      ]);
-
-      DB::commit();
-      session()->flash('global-success', 'Servidor atualizado com sucesso!');
-      return redirect()->route('servidores');
-    } catch (Exception $e) {
-      DB::rollback();
-      return $e->getMessage();
-    }
-  }
-
 
   public function destroy(string $id)
   {

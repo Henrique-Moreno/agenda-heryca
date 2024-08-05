@@ -1,4 +1,3 @@
-<!-- resources/views/components/admin/alunos/edit.blade.php -->
 @props(['cursos', 'aluno'])
 
 <!-- Button trigger modal -->
@@ -68,6 +67,22 @@
                                     <label for="codigo_turma">Turma *</label>
                                     <input class="form-control" type="text" id="codigo_turma" name="codigo_turma" required value="{{ $aluno->codigo_turma }}"/>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label for="password">Nova Senha</label>
+                                <input class="form-control" type="password" id="password" name="password"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt-4">
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <label for="password_confirmation">Confirme a nova senha</label>
+                                <input class="form-control" type="password" id="password_confirmation" name="password_confirmation"/>
                             </div>
                         </div>
                     </div>

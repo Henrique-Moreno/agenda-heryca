@@ -15,11 +15,8 @@ class UsuariosController extends Controller
    */
   public function index()
   {
-    // Obtém todos os tipos de acesso e usuários
     $tipoAcesso = TipoUsuario::all();
     $usuarios = User::all();
-
-    // Retorna a view com os tipos de acesso e usuários
     return view('admin.usuarios.index')
       ->with('tipos', $tipoAcesso)
       ->with('usuarios', $usuarios);
@@ -30,10 +27,7 @@ class UsuariosController extends Controller
    */
   public function create()
   {
-    // Obtém todos os tipos de acesso para exibir no formulário de criação
     $tiposAcesso = TipoUsuario::all();
-
-    // Retorna a view com os tipos de acesso
     return view('admin.usuarios.create', compact('tiposAcesso'));
   }
 
@@ -43,20 +37,30 @@ class UsuariosController extends Controller
   public function store(Request $request)
   {
     try {
-      // Cria um novo usuário com os dados fornecidos
+      // Validação do request
+      $request->validate([
+        'acesso_id' => 'required|exists:tipo_usuarios,id',
+        'name' => 'required|string|max:255',
+        'nome_completo' => 'required|string|max:255',
+        'cpf' => 'required|string|max:14|unique:users,CPF',
+        'email' => 'required|string|email|max:255|unique:users,email',
+        'password' => 'required|string|min:8|confirmed', // Validação da senha
+      ]);
+
+      // Criação do novo usuário
       User::create([
-        'acesso_id' => $request->acesso_id,
+        'acesso_id' => $request->input('acesso_id'),
         'name' => $request->input('name'),
         'nome_completo' => $request->input('nome_completo'),
         'CPF' => $request->input('cpf'),
         'email' => $request->input('email'),
-        'password' => Hash::make('teste123'), // Define uma senha padrão para o novo usuário
+        'password' => Hash::make($request->input('password')), // Usa a senha fornecida pelo usuário
       ]);
 
-      // Redireciona para a rota de índice de usuários com sucesso
-      return redirect()->route('usuario.index');
+      return redirect()
+        ->route('usuario.index')
+        ->with('success', 'Usuário criado com sucesso.');
     } catch (\Exception $e) {
-      // Redireciona de volta com mensagem de erro em caso de falha
       return redirect()
         ->back()
         ->with('error', 'Erro ao cadastrar usuário');
@@ -68,10 +72,7 @@ class UsuariosController extends Controller
    */
   public function show(string $id)
   {
-    // Obtém o usuário pelo ID
     $usuario = User::findOrFail($id);
-
-    // Retorna a view com os detalhes do usuário
     return view('admin.usuarios.show', compact('usuario'));
   }
 
@@ -80,11 +81,8 @@ class UsuariosController extends Controller
    */
   public function edit(string $id)
   {
-    // Obtém o usuário pelo ID e os tipos de acesso
     $usuario = User::findOrFail($id);
     $tiposAcesso = TipoUsuario::all();
-
-    // Retorna a view com o usuário e tipos de acesso para edição
     return view('admin.usuarios.edit', compact('usuario', 'tiposAcesso'));
   }
 
@@ -94,24 +92,27 @@ class UsuariosController extends Controller
   public function update(Request $request, string $id)
   {
     try {
-      // Encontra o usuário pelo ID e atualiza com os dados fornecidos
       $usuario = User::findOrFail($id);
 
-      $usuario->update([
+      $data = [
         'acesso_id' => $request->input('acesso_id'),
         'name' => $request->input('name'),
         'nome_completo' => $request->input('nome_completo'),
         'CPF' => $request->input('cpf'),
         'email' => $request->input('email'),
-        'password' => Hash::make('teste123'), // Atualiza a senha com um valor padrão
-      ]);
+      ];
 
-      // Define uma mensagem de sucesso e redireciona para a rota de índice de usuários
-      session()->flash('global-success', true);
+      // Atualiza a senha apenas se um novo valor for fornecido
+      if ($request->filled('password')) {
+        $data['password'] = Hash::make($request->input('password'));
+      }
+
+      $usuario->update($data);
+
+      session()->flash('global-success', 'Usuário atualizado com sucesso!');
       return redirect()->route('usuario.index');
     } catch (\Exception $e) {
-      // Define uma mensagem de erro e redireciona de volta em caso de falha
-      session()->flash('global-error', true);
+      session()->flash('global-error', 'Erro ao atualizar usuário');
       return redirect()
         ->back()
         ->with('error', 'Erro ao atualizar usuário');
@@ -124,19 +125,19 @@ class UsuariosController extends Controller
   public function destroy(string $id)
   {
     try {
-      // Encontra o usuário pelo ID e o exclui
       $usuario = User::findOrFail($id);
+      if (!$usuario) {
+        throw new \Exception('Usuário não encontrado');
+      }
       $usuario->delete();
 
-      // Redireciona para a rota de índice de usuários com mensagem de sucesso
       return redirect()
         ->route('usuario.index')
         ->with('success', 'Usuário deletado com sucesso.');
     } catch (\Exception $e) {
-      // Redireciona de volta com mensagem de erro em caso de falha
       return redirect()
         ->back()
-        ->with('error', 'Erro ao deletar usuário');
+        ->with('error', 'Erro ao deletar usuário: ' . $e->getMessage());
     }
   }
 }
