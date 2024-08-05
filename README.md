@@ -1,45 +1,53 @@
-    <h1>Projeto Laravel</h1>
-
-    <h2>Descrição</h2>
+<h1>Projeto Laravel</h1>
+<h2>Descrição</h2>
     <p>Este projeto é uma aplicação Laravel. Este README fornece instruções detalhadas sobre como configurar e rodar o projeto.</p>
 
-    <h2>Requisitos</h2>
+  <h2>Requisitos</h2>
     <ul>
         <li>PHP 8.2 ou superior</li>
         <li>Composer</li>
         <li>MySQL ou outro banco de dados suportado</li>
     </ul>
 
-    <h2>Passos para Configuração e Execução</h2>
+  <h2>Passos para Configuração e Execução</h2>
 
-    <h3>Passo 1: Clonar o Repositório</h3>
+  <h3>Passo 1: Clonar o Repositório</h3>
     <p>Clone o repositório para sua máquina local:</p>
     <pre><code>git clone https://github.com/seu-usuario/seu-repositorio.git
 
-cd seu-repositorio</code></pre>
+</code></pre>
 
-    <h3>Passo 2: Instalar Dependências</h3>
+  <h3>Passo 2: Instalar Dependências</h3>
     <p>Instale as dependências do projeto usando o Composer:</p>
     <pre><code>composer install</code></pre>
 
-    <h3>Passo 3: Configurar o Ambiente</h3>
+  <h3>Passo 3: Configurar o Ambiente</h3>
     <p>Crie um arquivo <code>.env</code> a partir do arquivo de exemplo:</p>
     <pre><code>cp .env.example .env</code></pre>
     <p>Gere a chave de aplicação:</p>
     <pre><code>php artisan key:generate</code></pre>
 
-    <h3>Passo 4: Configurar o Banco de Dados</h3>
+  <h1>Instruções para Rodar o Docker</h1>
+    <p>Siga os passos abaixo para rodar a aplicação usando Docker:</p>
+
+  <h2>1. Certifique-se de ter o Docker instalado:</h2>
+    <p>Você pode baixar e instalar o Docker <a href="https://www.docker.com/get-started" target="_blank">aqui</a>.</p>
+
+  <h2>3. Suba os containers:</h2>
+    <pre><code>docker-compose up -d</code></pre>
+
+  <h3>Passo 4: Configurar o Banco de Dados</h3>
     <p>Configure as credenciais do banco de dados no arquivo <code>.env</code> e execute as migrações:</p>
     <pre><code>php artisan migrate</code></pre>
 
-    <h3>Passo 5: Rodar o Servidor</h3>
+  <h3>Passo 5: Rodar o Servidor</h3>
     <p>Inicie o servidor embutido do Laravel:</p>
     <pre><code>php artisan serve</code></pre>
-    <p>Acesse a aplicação em <a href="http://localhost:8000">http://localhost:8000</a> no seu navegador.</p>
+    <p>Acesse a aplicação no seu navegador.</p>
 
-    <h2>Comandos Úteis</h2>
+  <h2>Comandos Úteis</h2>
 
-    <ul>
+  <ul>
         <li><strong>Parar o Servidor:</strong>
             <p>Para parar o servidor, pressione <code>Ctrl+C</code> no terminal onde o servidor está rodando.</p>
         </li>
@@ -53,5 +61,5 @@ cd seu-repositorio</code></pre>
         </li>
     </ul>
 
-    <h2>Licença</h2>
+  <h2>Licença</h2>
     <p>Este projeto está licenciado sob a <a href="LICENSE">Licença MIT</a>.</p>
