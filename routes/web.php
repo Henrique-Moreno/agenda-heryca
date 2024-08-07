@@ -33,7 +33,6 @@ Route::match(['get', 'post'], '/home', [HomePage::class, 'index'])->name('home-p
 // });
 
 
-
 // Página para ver Agenda
 Route::get('/agenda', [AgendaPage::class, 'show'])->name('agenda.show');
 // Criar nova agenda (mostra o formulário)
@@ -48,7 +47,6 @@ Route::put('/agenda/{servidorId}/{agendaId}', [AgendaPage::class, 'update'])->na
 Route::delete('/agenda/{servidorId}/{agendaId}', [AgendaPage::class, 'destroy'])->name('agenda.destroy');
 
 
-
 // prontuário eletrônico
 Route::match(['get', 'post'], '/prontuarios', [ProntuarioPage::class, 'index'])->name('prontuarios.index');
 Route::get('/prontuario', [ProntuarioPage::class, 'index'])->name('prontuario.index');
@@ -57,9 +55,9 @@ Route::get('/prontuario/search', [ProntuarioPage::class, 'search'])->name('pront
 Route::put('/prontuario/{id}', [ProntuarioPage::class, 'update'])->name('prontuario.update');
 Route::delete('/prontuario/{id}', [ProntuarioPage::class, 'destroy'])->name('prontuario.destroy');
 
+
 // Página para ver horários disponíveis
 Route::match(['get', 'post'], '/ver-horarios', [HorariosPage::class, 'verHorarios'])->name('ver-horarios');
-
 
 
 // Servidores

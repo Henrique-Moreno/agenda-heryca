@@ -108,14 +108,6 @@ class DeploySeeder extends Seeder
     Cargo::updateOrCreate([
       'descricao' => 'Psicólogo(a)',
     ]);
-
-    Cargo::updateOrCreate([
-      'descricao' => 'Médico(a)',
-    ]);
-
-    Cargo::updateOrCreate([
-      'descricao' => 'Pedagogo(a)',
-    ]);
   }
 
 }
