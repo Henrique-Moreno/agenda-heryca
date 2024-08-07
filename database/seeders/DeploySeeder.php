@@ -26,7 +26,6 @@ class DeploySeeder extends Seeder
       $this->createUser();
       $this->createCursos();
       $this->createCargo();
-      $this->createAluno();
 
       DB::commit();
     } catch (\Exception $e) {
@@ -57,22 +56,22 @@ class DeploySeeder extends Seeder
   protected function createUser()
   {
     User::updateOrCreate(
-      ['email' => 'admin.agendas@ifnmg'],
+      ['email' => 'admistrador.agendas@ifnmg'],
       [
-        'name' => 'Usuário Admin',
-        'nome_completo' => 'Usuário Admin',
-        'CPF' => '00000000000', // Use um CPF fictício ou adequado
+        'name' => 'Admistrador',
+        'nome_completo' => 'Administrador completo',
+        'CPF' => '11000000000', // Use um CPF fictício ou adequado
         'password' => Hash::make('acesso@admin2024'),
         'acesso_id' => 1,
       ]
     );
 
     User::updateOrCreate(
-      ['email' => 'lucas.agendas@aluno.ifnmg'],
+      ['email' => 'claudio.agendas@aluno.ifnmg'],
       [
-        'name' => 'Usuário Aluno',
-        'nome_completo' => 'Usuário Aluno',
-        'CPF' => '88866644433', // Use um CPF fictício ou adequado
+        'name' => 'Claudio',
+        'nome_completo' => 'Claudio',
+        'CPF' => '77866644433', // Use um CPF fictício ou adequado
         'password' => Hash::make('acesso@aluno2024'),
         'acesso_id' => 3,
       ]
@@ -112,6 +111,10 @@ class DeploySeeder extends Seeder
 
     Cargo::updateOrCreate([
       'descricao' => 'Médico(a)',
+    ]);
+
+    Cargo::updateOrCreate([
+      'descricao' => 'Pedagogo(a)',
     ]);
   }
 

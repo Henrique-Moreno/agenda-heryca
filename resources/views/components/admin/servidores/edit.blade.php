@@ -20,8 +20,8 @@
                     <div class="row">
                         <div class="form-group">
                             <div class="col-md-12">
-                                <label for="nome">Nome do servidor *</label>
-                                <input class="form-control" type="text" id="nome" name="nome" required value="{{ $servidor->usuario->name }}" />
+                                <label for="name">Nome do servidor *</label>
+                                <input class="form-control" type="text" id="name" name="name" required value="{{ $servidor->usuario->name }}" />
                             </div>
                         </div>
                     </div>
@@ -59,8 +59,8 @@
                     <div class="row mt-4">
                         <div class="form-group">
                             <div class="col-md-12">
-                                <label for="senha">Senha *</label>
-                                <input class="form-control" type="password" id="senha" name="senha" />
+                                <label for="password">Senha (deixe em branco para não alterar)</label>
+                                <input class="form-control" type="password" id="password" name="password" />
                             </div>
                         </div>
                     </div>

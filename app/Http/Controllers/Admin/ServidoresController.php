@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Servidor;
 use App\Models\Cargo;
+use App\Models\User; // Importar o modelo User
 use App\Services\Admin\UsuariosService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use DB;
 use Exception;
 
@@ -38,20 +41,17 @@ class ServidoresController extends Controller
     try {
       DB::beginTransaction();
 
-      // Validar a entrada do usuário
       $request->validate([
         'nome' => 'required|string',
         'email' => 'required|email',
         'cpf' => 'required|string',
         'cargo_id' => 'required|exists:cargos,id',
-        'password' => 'required|string|min:6', // Validação da senha
+        'password' => 'required|string|min:6',
       ]);
 
-      // Criar o usuário com a senha
       $usuario = $this->usuariosService->store($request, 2);
 
-      // Criar o servidor associado ao usuário
-      $servidor = Servidor::create([
+      Servidor::create([
         'usuario_id' => $usuario->id,
         'cargo_id' => $request->input('cargo_id'),
       ]);
@@ -61,27 +61,44 @@ class ServidoresController extends Controller
       return redirect()->route('servidores');
     } catch (Exception $e) {
       DB::rollback();
-      return $e->getMessage();
+      return redirect()
+        ->route('servidores')
+        ->with('global-error', 'Erro ao cadastrar servidor: ' . $e->getMessage());
     }
   }
 
-  public function update($id, $request, $tipo)
+  public function update(Request $request, $id)
   {
     try {
       $user = User::findOrFail($id);
 
+      $request->validate([
+        'name' => 'required|string',
+        'nome_completo' => 'required|string',
+        'cpf' => 'required|string',
+        'email' => 'required|email',
+        'password' => 'nullable|string|min:6',
+      ]);
+
       $user->update([
         'name' => $request->input('name'),
         'nome_completo' => $request->input('nome_completo'),
-        'CPF' => $request->input('cpf'),
+        'cpf' => $request->input('cpf'), // Certifique-se de que o campo é 'cpf' e não 'CPF'
         'email' => $request->input('email'),
-        'password' => Hash::make($request->input('password')), // Atualize a senha se fornecida
-        'acesso_id' => $tipo,
+        'password' => $request->filled('password') ? Hash::make($request->input('password')) : $user->password,
       ]);
 
-      return true;
+      return redirect()
+        ->route('servidores')
+        ->with('global-success', 'Servidor atualizado com sucesso!');
     } catch (ModelNotFoundException $e) {
-      throw $e; // Ou retorne uma resposta amigável
+      return redirect()
+        ->route('servidores')
+        ->with('global-error', 'Servidor não encontrado!');
+    } catch (Exception $e) {
+      return redirect()
+        ->route('servidores')
+        ->with('global-error', 'Erro ao atualizar servidor: ' . $e->getMessage());
     }
   }
 
@@ -102,10 +119,12 @@ class ServidoresController extends Controller
 
       DB::commit();
       session()->flash('global-success', 'Servidor removido com sucesso!');
-      return redirect()->route('servidores.index');
+      return redirect()->route('servidores');
     } catch (Exception $e) {
       DB::rollback();
-      return $e->getMessage();
+      return redirect()
+        ->route('servidores')
+        ->with('global-error', 'Erro ao remover servidor: ' . $e->getMessage());
     }
   }
 }

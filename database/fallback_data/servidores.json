@@ -1,36 +1,130 @@
 [
-  {
-    "id": 1,
-    "usuario": { "name": "Pedro", "email": "pedro@example.com" },
-    "cargo": { "descricao": "Psicólogo" },
-    "horarios": ["09:00", "10:00", "20:00"],
-    "dias": [
-      { "data": "01-08-2024", "dia": "Quinta-feira" },
-      { "data": "02-08-2024", "dia": "Sexta-feira" },
-      { "data": "05-08-2024", "dia": "Segunda-feira" }
-    ]
-  },
-  {
-    "id": 2,
-    "usuario": { "name": "Maria", "email": "maria@example.com" },
-    "cargo": { "descricao": "Psicóloga" },
-    "horarios": ["08:30", "13:00", "15:00"],
-    "dias": [
-      { "data": "06-08-2024", "dia": "Terça-feira" },
-      { "data": "08-08-2024", "dia": "Quinta-feira" },
-      { "data": "10-08-2024", "dia": "Sábado" }
-    ]
-  },
-  {
-    "id": 3,
-    "usuario": { "name": "José", "email": "jose@example.com" },
-    "cargo": { "descricao": "Psicólogo" },
-    "horarios": ["11:00", "14:00", "17:00"],
-    "dias": [
-      { "data": "12-08-2024", "dia": "Segunda-feira" },
-      { "data": "14-08-2024", "dia": "Quarta-feira" },
-      { "data": "16-08-2024", "dia": "Sexta-feira" }
-    ]
-  }
+    {
+        "id": 1,
+        "usuario": {
+            "name": "Pedro",
+            "email": "pedro@ifnmg.com"
+        },
+        "cargo": {
+            "descricao": "Psic\u00f3logo"
+        },
+        "horarios": [
+            "09:00",
+            "10:00",
+            "20:00"
+        ],
+        "dias": [
+            {
+                "data": "01-08-2024",
+                "dia": "Quinta-feira"
+            },
+            {
+                "data": "02-08-2024",
+                "dia": "Sexta-feira"
+            },
+            {
+                "data": "05-08-2024",
+                "dia": "Segunda-feira"
+            }
+        ],
+        "agenda": [
+            {
+                "id_aluno": 101,
+                "nome": "Pedro Lucas",
+                "data": "05-08-2024",
+                "horario": "09:35",
+                "status": "confirmado"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "usuario": {
+            "name": "Maria",
+            "email": "maria@ifnmg.com"
+        },
+        "cargo": {
+            "descricao": "Psic\u00f3loga"
+        },
+        "horarios": [
+            "08:30",
+            "13:00",
+            "15:00"
+        ],
+        "dias": [
+            {
+                "data": "06-08-2024",
+                "dia": "Ter\u00e7a-feira"
+            },
+            {
+                "data": "08-08-2024",
+                "dia": "Quinta-feira"
+            },
+            {
+                "data": "10-08-2024",
+                "dia": "S\u00e1bado"
+            }
+        ],
+        "agenda": [
+            {
+                "id_aluno": 103,
+                "nome": "Carlos Almeida",
+                "data": "06-08-2024",
+                "horario": "08:30",
+                "status": "confirmado"
+            },
+            {
+                "id_aluno": 104,
+                "nome": "Luana Costa",
+                "data": "08-08-2024",
+                "horario": "13:00",
+                "status": "pendente"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "usuario": {
+            "name": "Jos\u00e9",
+            "email": "jose@ifnmg.com"
+        },
+        "cargo": {
+            "descricao": "Psic\u00f3logo"
+        },
+        "horarios": [
+            "11:00",
+            "14:00",
+            "17:00"
+        ],
+        "dias": [
+            {
+                "data": "12-08-2024",
+                "dia": "Segunda-feira"
+            },
+            {
+                "data": "14-08-2024",
+                "dia": "Quarta-feira"
+            },
+            {
+                "data": "16-08-2024",
+                "dia": "Sexta-feira"
+            }
+        ],
+        "agenda": [
+            {
+                "id_aluno": 105,
+                "nome": "Juliana Pereira",
+                "data": null,
+                "horario": "11:11",
+                "status": "cancelado"
+            },
+            {
+                "id_aluno": 106,
+                "nome": "Roberto Lima",
+                "data": "16-08-2024",
+                "horario": "14:00",
+                "status": "pendente"
+            }
+        ]
+    }
 ]
-

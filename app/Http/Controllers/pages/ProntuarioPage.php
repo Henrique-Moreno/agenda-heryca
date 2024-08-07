@@ -16,8 +16,9 @@ class ProntuarioPage extends Controller
   public function index(Request $request)
   {
     $prontuarios = Prontuario::all();
-        $servidores = Servidor::all();  // Buscar todos os servidores
-        $alunos = Aluno::all();
+    $servidores = Servidor::all(); // Buscar todos os servidores
+    $alunos = Aluno::all();
+
     $search = $request->input('search'); // Captura o termo de busca
 
     // Inicializa a consulta
@@ -32,8 +33,6 @@ class ProntuarioPage extends Controller
         ->orWhereHas('aluno', function ($q) use ($search) {
           $q->where('nome_aluno', 'like', "%{$search}%"); // Ajuste para o nome correto da coluna
         });
-
-
     }
     return view('content.pages.pages-prontuario', compact('prontuarios', 'servidores', 'alunos'));
   }

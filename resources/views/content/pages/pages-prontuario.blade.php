@@ -25,22 +25,8 @@
     <form action="{{ route('prontuario.store') }}" method="POST">
         @csrf
         <div class="form-group">
-            <label for="id_servidor">Servidor</label>
-            <select class="form-select" id="id_servidor" name="id_servidor" required>
-                <option value="">Selecione o Servidor</option>
-                @foreach($servidores as $servidor)
-                    <option value="{{ $servidor->id }}">{{ $servidor->nome_completo }}</option>
-                @endforeach
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="id_aluno">Aluno</label>
-            <select class="form-select" id="id_aluno" name="id_aluno" required>
-                <option value="">Selecione o Aluno</option>
-                @foreach($alunos as $aluno)
-                    <option value="{{ $aluno->id }}">{{ $aluno->nome_aluno }}</option>
-                @endforeach
-            </select>
+            <label for="nome_aluno">Nome do Aluno</label>
+            <input type="text" class="form-control" id="nome_aluno" name="nome_aluno" required>
         </div>
         <div class="form-group">
             <label for="observacao">Observação</label>

@@ -28,19 +28,25 @@ Route::get('/auth/register-basic', [RegisterBasic::class, 'index'])->name('auth-
 
 // Home
 Route::match(['get', 'post'], '/home', [HomePage::class, 'index'])->name('home-page');
+// Route::middleware(['check.access'])->group(function () {
+//   Route::match(['get', 'post'], '/home', [HomePage::class, 'index'])->name('home-page');
+// });
+
 
 
 // Página para ver Agenda
-// Route::get('/agenda', [AgendaPage::class, 'show'])->name('agenda-page');
-
 Route::get('/agenda', [AgendaPage::class, 'show'])->name('agenda.show');
+// Criar nova agenda (mostra o formulário)
+Route::get('/agenda/create', [AgendaPage::class, 'create'])->name('agenda.create');
+// Armazenar uma nova agenda
 Route::post('/agenda', [AgendaPage::class, 'store'])->name('agenda.store');
 // Rota para exibir o formulário de edição
-Route::get('/agenda/edit/{id}', [AgendaPage::class, 'edit'])->name('agenda.edit');
-// Rota para atualizar uma agenda
-Route::put('/agenda/{id}', [AgendaPage::class, 'update'])->name('agenda.update');
-// Rota para excluir uma agenda
-Route::delete('/agenda/{id}', [AgendaPage::class, 'destroy'])->name('agenda.destroy');
+Route::get('/agenda/edit/{servidorId}/{agendaId}', [AgendaPage::class, 'edit'])->name('agenda.edit');
+// Atualizar uma agenda
+Route::put('/agenda/{servidorId}/{agendaId}', [AgendaPage::class, 'update'])->name('agenda.update');
+// Excluir uma agenda
+Route::delete('/agenda/{servidorId}/{agendaId}', [AgendaPage::class, 'destroy'])->name('agenda.destroy');
+
 
 
 // prontuário eletrônico
